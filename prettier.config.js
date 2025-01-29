@@ -4,6 +4,7 @@ const config = {
   semi: true,
   singleQuote: true,
   arrowParens: 'always',
+  plugins: ['prettier-plugin-tailwindcss'],
 };
 
 export default config;
