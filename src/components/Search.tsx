@@ -1,18 +1,46 @@
-import { Component } from 'react';
+import { Component, createRef, FormEvent } from 'react';
+type SearchProps = {
+  onSearchClick: (searchValue: string) => void;
+};
 
-class Search extends Component {
+class Search extends Component<SearchProps> {
+  private inputRef = createRef<HTMLInputElement>();
+
+  componentDidMount() {
+    const searchValue = localStorage.getItem('search') || '';
+
+    if (this.inputRef.current) {
+      this.inputRef.current.value = searchValue;
+    }
+
+    this.props.onSearchClick(searchValue);
+  }
+
+  handleSearchClick = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const searchValue = this.inputRef.current?.value.trim() || '';
+    this.props.onSearchClick(searchValue);
+    localStorage.setItem('search', searchValue);
+  };
+
   render() {
     return (
-      <div className="group relative flex h-16 rounded-sm hover:bg-amber-400">
+      <form
+        className="relative flex h-14 gap-4 transition-all duration-300"
+        onSubmit={this.handleSearchClick}
+      >
         <input
           type="text"
-          className="h-full w-full flex-1 rounded-sm border-2 border-gray-300 bg-gray-50 p-3 pr-48 text-2xl font-medium text-gray-900 duration-200 group-hover:border-orange-300 focus:border-orange-300 focus:outline-5 focus:outline-orange-200"
-          placeholder="Search something"
+          className="h-full w-full flex-1 rounded-sm border-2 border-sky-300 bg-gray-50 p-3 text-2xl font-medium text-gray-900 hover:border-sky-400 focus:border-sky-400 focus:outline-5 focus:outline-sky-100"
+          ref={this.inputRef}
         />
-        <button className="absolute top-1/2 right-0 flex h-[calc(100%-10px)] -translate-x-[5px] -translate-y-1/2 items-center rounded-sm bg-gradient-to-tl from-red-500 to-orange-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none">
+        <button
+          type="submit"
+          className="flex items-center rounded-sm bg-gradient-to-tl from-sky-600 to-sky-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none"
+        >
           Search
         </button>
-      </div>
+      </form>
     );
   }
 }

@@ -1,17 +1,13 @@
 import { Component } from 'react';
-import { Search } from '@components';
-import { MainLayout } from '@layouts';
+import { AppError, CardsList, Search } from '@components';
+import { BaseLayout, HeaderSection, MainSection } from '@layouts';
 import './App.css';
+import { CharacterType } from '@types';
 
 type AppProps = Record<string, unknown>;
 
-type PokemonType = {
-  name: string;
-  url: string;
-};
-
 type AppState = {
-  pokemons: PokemonType[];
+  characters: CharacterType[];
   isLoading: boolean;
   error: string | null;
 };
@@ -20,35 +16,59 @@ class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      pokemons: [],
+      characters: [],
       isLoading: true,
       error: null,
     };
   }
 
-  componentDidMount() {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({ pokemons: data.results, isLoading: false })
-      )
-      .catch((error) => this.setState({ error, isLoading: false }));
-  }
+  fetchData = async (value: string) => {
+    this.setState({ isLoading: true });
+
+    try {
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/?name=${value}`
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        this.setState({ characters: data.results || [], isLoading: false });
+        return;
+      }
+
+      if (response.status === 404 && data.error === 'There is nothing here') {
+        this.setState({ error: 'Nothing found', isLoading: false });
+        return;
+      }
+
+      throw new Error('An error has occurred');
+    } catch (error) {
+      this.setState({
+        error: error instanceof Error ? error.message : 'Something went wrong',
+        isLoading: false,
+      });
+    }
+  };
+
+  handleSearch = async (value: string) => {
+    this.setState({ error: null });
+    await this.fetchData(value);
+  };
 
   render() {
-    const { pokemons, isLoading, error } = this.state;
-
-    if (isLoading) return <p>Loading...</p>;
-
-    if (error) return <p>Error: something went wrong</p>;
+    const { characters, isLoading, error } = this.state;
 
     return (
-      <MainLayout>
-        <Search />
-        {pokemons.map((pokemon) => (
-          <p key={pokemon.name}>{pokemon.name}</p>
-        ))}
-      </MainLayout>
+      <BaseLayout>
+        <HeaderSection>
+          <Search onSearchClick={this.handleSearch} />
+        </HeaderSection>
+        <MainSection isLoading={isLoading}>
+          {error && <AppError error={error} />}
+          {!error && <CardsList characters={characters} />}
+        </MainSection>
+      </BaseLayout>
     );
   }
 }
