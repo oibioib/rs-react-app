@@ -1,4 +1,4 @@
-import ErrorButton from '@components/ErrorButton';
+import { ErrorButton } from '@components';
 import { Component, ReactNode } from 'react';
 
 type MainLayoutProps = {
