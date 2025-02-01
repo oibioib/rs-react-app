@@ -1,9 +1,9 @@
+import { AppContext, AppContextType } from '@context';
 import { Component, createRef, FormEvent } from 'react';
-type SearchProps = {
-  onSearchClick: (searchValue: string) => void;
-};
 
-class Search extends Component<SearchProps> {
+class Search extends Component {
+  static contextType = AppContext;
+  declare context: AppContextType;
   private inputRef = createRef<HTMLInputElement>();
 
   componentDidMount() {
@@ -13,14 +13,17 @@ class Search extends Component<SearchProps> {
       this.inputRef.current.value = searchValue;
     }
 
-    this.props.onSearchClick(searchValue);
+    const { fetchData } = this.context;
+    fetchData(searchValue);
   }
 
-  handleSearchClick = (event: FormEvent<HTMLFormElement>) => {
+  handleSearchClick = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const searchValue = this.inputRef.current?.value.trim() || '';
-    this.props.onSearchClick(searchValue);
     localStorage.setItem('search', searchValue);
+
+    const { fetchData } = this.context;
+    await fetchData(searchValue);
   };
 
   render() {

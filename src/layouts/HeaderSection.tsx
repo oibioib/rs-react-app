@@ -1,3 +1,4 @@
+import { Logo, Search } from '@components';
 import { Component, ReactNode } from 'react';
 
 type HeaderSectionProps = {
@@ -8,9 +9,8 @@ class HeaderSection extends Component<HeaderSectionProps> {
   render() {
     return (
       <header>
-        <h1 className="mb-6 text-3xl font-bold text-slate-700">
-          Rick and Morty API search
-        </h1>
+        <Logo />
+        <Search />
         {this.props.children}
       </header>
     );

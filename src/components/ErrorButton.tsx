@@ -21,7 +21,7 @@ class ErrorButton extends Component<ErrorButtonProps, ErrorButtonState> {
 
   render() {
     if (this.state.isError) {
-      throw new Error();
+      throw new Error('Error message from ErrorButton!');
     }
 
     return (

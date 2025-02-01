@@ -1,16 +1,17 @@
-import { CharacterType } from '@types';
 import { Component } from 'react';
 import Card from './Card';
+import { AppContext, AppContextType } from '@context';
 
-type CardsListProps = {
-  characters: CharacterType[];
-};
+class CardsList extends Component {
+  static contextType = AppContext;
+  declare context: AppContextType;
 
-class CardsList extends Component<CardsListProps> {
   render() {
+    const { characters } = this.context;
+
     return (
       <div className="grid grid-cols-1 gap-6 @xs:grid-cols-2 @2xl:grid-cols-4">
-        {this.props.characters.map((character) => (
+        {characters.map((character) => (
           <Card key={character.id} {...character} />
         ))}
       </div>
