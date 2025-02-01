@@ -20,7 +20,9 @@ class ErrorButton extends Component<ErrorButtonProps, ErrorButtonState> {
   };
 
   render() {
-    if (this.state.isError) {
+    const { isError } = this.state;
+
+    if (isError) {
       throw new Error('Error message from ErrorButton!');
     }
 

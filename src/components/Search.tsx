@@ -29,7 +29,7 @@ class Search extends Component {
   render() {
     return (
       <form
-        className="relative flex h-14 gap-4 transition-all duration-300"
+        className="relative flex min-h-14 flex-col gap-4 transition-all duration-300 sm:flex-row"
         onSubmit={this.handleSearchClick}
       >
         <input
@@ -39,7 +39,7 @@ class Search extends Component {
         />
         <button
           type="submit"
-          className="rounded-sm bg-gradient-to-tl from-sky-600 to-sky-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none"
+          className="min-h-14 rounded-sm bg-gradient-to-tl from-sky-600 to-sky-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none"
         >
           Search
         </button>

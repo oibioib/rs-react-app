@@ -7,7 +7,7 @@ import { ErrorBoundary } from '@components';
 class App extends Component {
   render() {
     return (
-      <ErrorBoundary>
+      <ErrorBoundary className="h-screen w-full">
         <AppProvider>
           <BaseLayout>
             <HeaderSection />
