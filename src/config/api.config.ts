@@ -7,9 +7,3 @@ export const ENDPOINT = {
 export const SEARCH = {
   NAME: 'name',
 };
-
-export const NO_RESULTS = {
-  STATUS: 404,
-  TEXT: 'There is nothing here',
-  MESSAGE: 'Nothing found',
-};

@@ -1,5 +1,6 @@
-import { ENDPOINT, ERROR, NO_RESULTS, SEARCH, URL } from '@config';
+import { ENDPOINT, ERROR, SEARCH, URL } from '@config';
 import { CharacterType } from '@types';
+import { FetchError, getData } from '@utils';
 import { Component, createContext } from 'react';
 
 type AppProviderProps = {
@@ -40,24 +41,20 @@ class AppProvider extends Component<AppProviderProps, AppProviderState> {
 
     try {
       const response = await fetch(fetchUrl);
-      const data = await response.json();
+
+      const data = await getData(response);
 
       if (response.ok) {
         this.setState({ characters: data.results || [], isLoading: false });
         return;
       }
 
-      if (
-        response.status === NO_RESULTS.STATUS &&
-        data.error === NO_RESULTS.TEXT
-      ) {
-        throw new Error(NO_RESULTS.MESSAGE);
-      }
-
-      throw new Error(ERROR.FETCH);
+      throw new FetchError(
+        data?.error || `${ERROR.FETCH} (Status: ${response.status})`
+      );
     } catch (error) {
       this.setState({
-        error: error instanceof Error ? error.message : ERROR.DEFAULT,
+        error: error instanceof FetchError ? error.message : ERROR.DEFAULT,
         isLoading: false,
       });
     }
