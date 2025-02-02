@@ -6,7 +6,9 @@ type AppErrorProps = {
 
 class AppError extends Component<AppErrorProps> {
   render() {
-    return <div>{this.props.error}</div>;
+    const { error } = this.props;
+
+    return <div>{error}</div>;
   }
 }
 

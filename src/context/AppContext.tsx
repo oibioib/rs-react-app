@@ -1,3 +1,4 @@
+import { ENDPOINT, ERROR, NO_RESULTS, SEARCH, URL } from '@config';
 import { CharacterType } from '@types';
 import { Component, createContext } from 'react';
 
@@ -31,28 +32,33 @@ class AppProvider extends Component<AppProviderProps, AppProviderState> {
   fetchData = async (value: string) => {
     this.setState({ isLoading: true, error: null, characters: [] });
 
-    try {
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character/?name=${value}`
-      );
+    let fetchUrl = `${URL}/${ENDPOINT.CHARACTER}/`;
 
+    if (value) {
+      fetchUrl += `?${SEARCH.NAME}=${value}`;
+    }
+
+    try {
+      const response = await fetch(fetchUrl);
       const data = await response.json();
 
       if (response.ok) {
         this.setState({ characters: data.results || [], isLoading: false });
-
         return;
       }
 
-      if (response.status === 404 && data.error === 'There is nothing here') {
-        this.setState({ error: 'Nothing found', isLoading: false });
+      if (
+        response.status === NO_RESULTS.STATUS &&
+        data.error === NO_RESULTS.TEXT
+      ) {
+        this.setState({ error: NO_RESULTS.MESSAGE, isLoading: false });
         return;
       }
 
-      throw new Error('An error has occurred');
+      throw new Error(ERROR.FETCH);
     } catch (error) {
       this.setState({
-        error: error instanceof Error ? error.message : 'Something went wrong',
+        error: error instanceof Error ? error.message : ERROR.DEFAULT,
         isLoading: false,
       });
     }

@@ -1,3 +1,4 @@
+import { SPINNER } from '@config';
 import { Component } from 'react';
 
 class Spinner extends Component {
@@ -9,7 +10,7 @@ class Spinner extends Component {
           role="status"
           aria-label="loading"
         >
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only">{SPINNER.TEXT}</span>
         </div>
       </div>
     );

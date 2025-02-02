@@ -1,3 +1,4 @@
+import { BUTTON, LOCALSTORAGE } from '@config';
 import { AppContext, AppContextType } from '@context';
 import { Component, createRef, FormEvent } from 'react';
 
@@ -7,7 +8,7 @@ class Search extends Component {
   private inputRef = createRef<HTMLInputElement>();
 
   componentDidMount() {
-    const searchValue = localStorage.getItem('search') || '';
+    const searchValue = localStorage.getItem(LOCALSTORAGE.SEARCH) || '';
 
     if (this.inputRef.current) {
       this.inputRef.current.value = searchValue;
@@ -20,7 +21,7 @@ class Search extends Component {
   handleSearchClick = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const searchValue = this.inputRef.current?.value.trim() || '';
-    localStorage.setItem('search', searchValue);
+    localStorage.setItem(LOCALSTORAGE.SEARCH, searchValue);
 
     const { fetchData } = this.context;
     await fetchData(searchValue);
@@ -41,7 +42,7 @@ class Search extends Component {
           type="submit"
           className="min-h-14 rounded-sm bg-gradient-to-tl from-sky-600 to-sky-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none"
         >
-          Search
+          {BUTTON.SEARCH}
         </button>
       </form>
     );

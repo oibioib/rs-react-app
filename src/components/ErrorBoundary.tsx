@@ -1,3 +1,4 @@
+import { ERROR, ERROR_BOUNDARY } from '@config';
 import { Component, ReactNode } from 'react';
 
 type ErrorBoundaryProps = {
@@ -21,7 +22,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error) {
-    console.log('Error caught by ErrorBoundary:', error.message);
+    console.log(`${ERROR.ERROR_BOUNDARY}: ${error.message}`);
   }
 
   render() {
@@ -34,10 +35,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       <div className={`flex flex-1 items-center justify-center ${className}`}>
         <div className="flex flex-col items-center justify-center gap-4 rounded-sm border-3 border-amber-400 bg-amber-50 p-10">
           <p className="text-2xl font-bold text-slate-700">
-            Oops! Something went wrong...
+            {ERROR_BOUNDARY.HEADING}
           </p>
           <p className="text-slate-700">{message}</p>
-          <p className="text-slate-700">Reload the page or try again later.</p>
+          <p className="text-slate-700">{ERROR_BOUNDARY.MESSAGE}</p>
         </div>
       </div>
     );

@@ -7,11 +7,13 @@ type HeaderSectionProps = {
 
 class HeaderSection extends Component<HeaderSectionProps> {
   render() {
+    const { children } = this.props;
+
     return (
       <header>
         <Logo />
         <Search />
-        {this.props.children}
+        {children}
       </header>
     );
   }
