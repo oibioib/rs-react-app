@@ -1,5 +1,6 @@
-import { Logo, Search } from '@components';
 import { Component, ReactNode } from 'react';
+
+import { Logo, Search } from '@components';
 
 type HeaderSectionProps = {
   children?: ReactNode;

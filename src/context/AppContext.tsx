@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+
 import { AppProviderState } from './AppProvider';
 
 export type AppContextType = AppProviderState & {

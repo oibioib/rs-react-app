@@ -1,6 +1,7 @@
+import { Component, FormEvent, createRef } from 'react';
+
 import { BUTTON, LOCALSTORAGE } from '@config';
 import { AppContext, AppContextType } from '@context';
-import { Component, createRef, FormEvent } from 'react';
 
 class Search extends Component {
   static contextType = AppContext;

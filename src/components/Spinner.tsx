@@ -1,5 +1,6 @@
-import { SPINNER } from '@config';
 import { Component } from 'react';
+
+import { SPINNER } from '@config';
 
 class Spinner extends Component {
   render() {

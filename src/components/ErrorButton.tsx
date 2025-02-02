@@ -1,5 +1,6 @@
-import { BUTTON, ERROR } from '@config';
 import { Component } from 'react';
+
+import { BUTTON, ERROR } from '@config';
 
 type ErrorButtonProps = Record<string, unknown>;
 

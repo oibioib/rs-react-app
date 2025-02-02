@@ -1,6 +1,7 @@
+import { Component, ReactNode } from 'react';
+
 import { AppError, CardsList, ErrorButton, Spinner } from '@components';
 import { AppContext, AppContextType } from '@context';
-import { Component, ReactNode } from 'react';
 
 type MainSectionProps = {
   children?: ReactNode;

@@ -1,6 +1,7 @@
+import { Component, ReactNode } from 'react';
+
 import { ERROR, ERROR_BOUNDARY } from '@config';
 import { Logger } from '@utils';
-import { Component, ReactNode } from 'react';
 
 type ErrorBoundaryProps = {
   children?: ReactNode;

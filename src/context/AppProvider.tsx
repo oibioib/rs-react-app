@@ -1,7 +1,9 @@
+import { Component } from 'react';
+
 import { ENDPOINT, ERROR, SEARCH, URL } from '@config';
 import { CharacterType } from '@types';
 import { FetchError, getData } from '@utils';
-import { Component } from 'react';
+
 import AppContext from './AppContext';
 
 type AppProviderProps = {

@@ -1,5 +1,6 @@
-import { CharacterType } from '@types';
 import { Component } from 'react';
+
+import { CharacterType } from '@types';
 
 type CardProps = CharacterType;
 

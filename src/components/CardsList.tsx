@@ -1,6 +1,8 @@
 import { Component } from 'react';
-import Card from './Card';
+
 import { AppContext, AppContextType } from '@context';
+
+import Card from './Card';
 
 class CardsList extends Component {
   static contextType = AppContext;

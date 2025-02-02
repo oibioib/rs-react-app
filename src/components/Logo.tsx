@@ -1,5 +1,6 @@
-import { LOGO } from '@config';
 import { Component } from 'react';
+
+import { LOGO } from '@config';
 
 export class Logo extends Component {
   render() {

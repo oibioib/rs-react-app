@@ -1,8 +1,10 @@
 import { Component } from 'react';
-import { BaseLayout, HeaderSection, MainSection } from '@layouts';
-import './App.css';
-import { AppProvider } from '@context';
+
 import { ErrorBoundary } from '@components';
+import { AppProvider } from '@context';
+import { BaseLayout, HeaderSection, MainSection } from '@layouts';
+
+import './App.css';
 
 class App extends Component {
   render() {
