@@ -1,5 +1,6 @@
 import { Component, FormEvent, createRef } from 'react';
 
+import { Button } from '@components/ui';
 import { BUTTON, LOCALSTORAGE } from '@config';
 import { AppContext, AppContextType } from '@context';
 
@@ -39,12 +40,8 @@ class Search extends Component {
           className="h-full w-full flex-1 rounded-sm border-2 border-sky-300 bg-gray-50 p-3 text-2xl font-medium text-gray-900 hover:border-sky-400 focus:border-sky-400 focus:outline-5 focus:outline-sky-100"
           ref={this.inputRef}
         />
-        <button
-          type="submit"
-          className="min-h-14 rounded-sm bg-gradient-to-tl from-sky-600 to-sky-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none"
-        >
-          {BUTTON.SEARCH}
-        </button>
+
+        <Button type="submit">{BUTTON.SEARCH}</Button>
       </form>
     );
   }

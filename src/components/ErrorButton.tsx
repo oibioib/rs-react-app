@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+import { Button } from '@components/ui';
 import { BUTTON, ERROR } from '@config';
 
 type ErrorButtonProps = Record<string, unknown>;
@@ -29,13 +30,10 @@ class ErrorButton extends Component<ErrorButtonProps, ErrorButtonState> {
     }
 
     return (
-      <div className="flex h-14 justify-center">
-        <button
-          className="h-full rounded-sm bg-gradient-to-tl from-amber-600 to-amber-400 px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none"
-          onClick={this.handleClick}
-        >
+      <div className="flex justify-center">
+        <Button style="secondary" onClick={this.handleClick}>
           {BUTTON.THROW_ERROR}
-        </button>
+        </Button>
       </div>
     );
   }
