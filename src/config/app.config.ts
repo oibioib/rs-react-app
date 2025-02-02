@@ -9,7 +9,7 @@ export const LOCALSTORAGE = {
 };
 
 export const BUTTON = {
-  SEARCH: 'search',
+  SEARCH: 'Search',
   THROW_ERROR: 'Throw an Error',
 };
 

@@ -11,7 +11,7 @@ export class Button extends Component<ButtonProps> {
     const { children, style, className, ...rest } = this.props;
 
     const defaultStyles =
-      'h-14 rounded-sm bg-gradient-to-tl  px-12 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none';
+      'flex items-center justify-center min-h-14 rounded-sm bg-gradient-to-tl px-12 py-3 text-2xl font-medium text-white transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-br focus:outline-none';
 
     let colorStyles = '';
 
