@@ -51,8 +51,7 @@ class AppProvider extends Component<AppProviderProps, AppProviderState> {
         response.status === NO_RESULTS.STATUS &&
         data.error === NO_RESULTS.TEXT
       ) {
-        this.setState({ error: NO_RESULTS.MESSAGE, isLoading: false });
-        return;
+        throw new Error(NO_RESULTS.MESSAGE);
       }
 
       throw new Error(ERROR.FETCH);
