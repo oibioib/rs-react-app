@@ -1,4 +1,5 @@
 import { ERROR, ERROR_BOUNDARY } from '@config';
+import { Logger } from '@utils';
 import { Component, ReactNode } from 'react';
 
 type ErrorBoundaryProps = {
@@ -22,7 +23,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error) {
-    console.log(`${ERROR.ERROR_BOUNDARY}: ${error.message}`);
+    Logger.warn(`${ERROR.ERROR_BOUNDARY}: ${error.message}`);
   }
 
   render() {
