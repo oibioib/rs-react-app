@@ -1,11 +1,13 @@
-import { FormEvent, useContext, useEffect, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 
 import { Button, InputWithRef } from '@components/ui';
 import { BUTTON, LOCALSTORAGE } from '@config';
-import { AppContext } from '@context';
 
-const Search = () => {
-  const { fetchData } = useContext(AppContext);
+type SearchProps = {
+  fetchData: (value: string) => Promise<void>;
+};
+
+const Search = ({ fetchData }: SearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
