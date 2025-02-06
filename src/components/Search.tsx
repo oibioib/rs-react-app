@@ -1,45 +1,37 @@
-import { Component, FormEvent, createRef } from 'react';
+import { FormEvent, useContext, useEffect, useRef } from 'react';
 
 import { Button, InputWithRef } from '@components/ui';
 import { BUTTON, LOCALSTORAGE } from '@config';
-import { AppContext, AppContextType } from '@context';
+import { AppContext } from '@context';
 
-class Search extends Component {
-  static contextType = AppContext;
-  declare context: AppContextType;
-  private inputRef = createRef<HTMLInputElement>();
+const Search = () => {
+  const { fetchData } = useContext(AppContext);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  componentDidMount() {
+  useEffect(() => {
     const searchValue = localStorage.getItem(LOCALSTORAGE.SEARCH) || '';
-
-    if (this.inputRef.current) {
-      this.inputRef.current.value = searchValue;
+    if (inputRef.current) {
+      inputRef.current.value = searchValue;
     }
-
-    const { fetchData } = this.context;
     fetchData(searchValue);
-  }
+  }, [fetchData]);
 
-  handleSearchClick = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSearchClick = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchValue = this.inputRef.current?.value.trim() || '';
+    const searchValue = inputRef.current?.value.trim() || '';
     localStorage.setItem(LOCALSTORAGE.SEARCH, searchValue);
-
-    const { fetchData } = this.context;
     await fetchData(searchValue);
   };
 
-  render() {
-    return (
-      <form
-        className="relative flex min-h-14 flex-col gap-4 transition-all duration-300 sm:flex-row"
-        onSubmit={this.handleSearchClick}
-      >
-        <InputWithRef ref={this.inputRef} />
-        <Button type="submit">{BUTTON.SEARCH}</Button>
-      </form>
-    );
-  }
-}
+  return (
+    <form
+      className="relative flex min-h-14 flex-col gap-4 transition-all duration-300 sm:flex-row"
+      onSubmit={handleSearchClick}
+    >
+      <InputWithRef ref={inputRef} />
+      <Button type="submit">{BUTTON.SEARCH}</Button>
+    </form>
+  );
+};
 
 export default Search;

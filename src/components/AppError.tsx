@@ -1,15 +1,11 @@
-import { Component } from 'react';
+import { ReactNode } from 'react';
 
 type AppErrorProps = {
   error: string;
 };
 
-class AppError extends Component<AppErrorProps> {
-  render() {
-    const { error } = this.props;
-
-    return <div>{error}</div>;
-  }
-}
+const AppError = ({ error }: AppErrorProps): ReactNode => {
+  return <div>{error}</div>;
+};
 
 export default AppError;

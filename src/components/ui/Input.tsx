@@ -1,9 +1,7 @@
 import {
-  Component,
   DetailedHTMLProps,
   InputHTMLAttributes,
   ReactNode,
-  RefObject,
   forwardRef,
 } from 'react';
 
@@ -14,12 +12,10 @@ type InputProps = DetailedHTMLProps<
   children?: ReactNode;
   className?: string;
   style?: 'primary' | 'secondary';
-  forwardedRef?: RefObject<HTMLInputElement>;
 };
 
-class Input extends Component<InputProps> {
-  render() {
-    const { children, style, className, forwardedRef, ...rest } = this.props;
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ children, style = 'primary', className, ...rest }, ref) => {
     const defaultStyles =
       'h-full w-full flex-1 rounded-sm border-2 bg-gray-50 p-3 text-2xl font-medium text-gray-900 focus:outline-5 ';
 
@@ -38,20 +34,13 @@ class Input extends Component<InputProps> {
     const inputStyles = `${defaultStyles} ${colorStyles} ${className ? className : ''}`;
 
     return (
-      <input className={inputStyles} ref={forwardedRef} {...rest}>
+      <input className={inputStyles} ref={ref} {...rest}>
         {children}
       </input>
     );
   }
-}
+);
 
-const InputWithRef = forwardRef<
-  HTMLInputElement,
-  Omit<InputProps, 'forwardedRef'>
->((props, ref) => {
-  return <Input {...props} forwardedRef={ref as RefObject<HTMLInputElement>} />;
-});
+Input.displayName = 'Input';
 
-InputWithRef.displayName = 'InputWithRef';
-
-export default InputWithRef;
+export default Input;

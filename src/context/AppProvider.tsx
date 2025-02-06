@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 
 import { ENDPOINT, ERROR, SEARCH, URL } from '@config';
 import { CharacterType } from '@types';
@@ -7,28 +7,25 @@ import { FetchError, getData } from '@utils';
 import AppContext from './AppContext';
 
 type AppProviderProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
 };
 
 export type AppProviderState = {
   characters: CharacterType[];
   isLoading: boolean;
   error: string | null;
+  fetchData: (value: string) => Promise<void>;
 };
 
-class AppProvider extends Component<AppProviderProps, AppProviderState> {
-  constructor(props: AppProviderProps) {
-    super(props);
+const AppProvider = ({ children }: AppProviderProps) => {
+  const [characters, setCharacters] = useState<CharacterType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    this.state = {
-      characters: [],
-      isLoading: false,
-      error: null,
-    };
-  }
-
-  fetchData = async (value: string) => {
-    this.setState({ isLoading: true, error: null, characters: [] });
+  const fetchData = useCallback(async (value: string) => {
+    setIsLoading(true);
+    setError(null);
+    setCharacters([]);
 
     let fetchUrl = `${URL}/${ENDPOINT.CHARACTER}/`;
 
@@ -42,7 +39,8 @@ class AppProvider extends Component<AppProviderProps, AppProviderState> {
       const data = await getData(response);
 
       if (response.ok) {
-        this.setState({ characters: data.results || [], isLoading: false });
+        setCharacters(data.results || []);
+        setIsLoading(false);
         return;
       }
 
@@ -50,31 +48,23 @@ class AppProvider extends Component<AppProviderProps, AppProviderState> {
         data?.error || `${ERROR.FETCH} (Status: ${response.status})`
       );
     } catch (error) {
-      this.setState({
-        error: error instanceof FetchError ? error.message : ERROR.DEFAULT,
-        isLoading: false,
-      });
+      setError(error instanceof FetchError ? error.message : ERROR.DEFAULT);
+      setIsLoading(false);
     }
-  };
+  }, []);
 
-  render() {
-    const { children } = this.props;
-    const { characters, isLoading, error } = this.state;
-    const { fetchData } = this;
-
-    return (
-      <AppContext.Provider
-        value={{
-          characters,
-          isLoading,
-          error,
-          fetchData,
-        }}
-      >
-        {children}
-      </AppContext.Provider>
-    );
-  }
-}
+  return (
+    <AppContext.Provider
+      value={{
+        characters,
+        isLoading,
+        error,
+        fetchData,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
 export default AppProvider;
