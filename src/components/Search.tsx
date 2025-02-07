@@ -2,32 +2,32 @@ import { FormEvent, useEffect, useRef } from 'react';
 
 import { Button, InputWithRef } from '@components/ui';
 import { BUTTON, LOCALSTORAGE } from '@config';
+import { useStorage } from '@hooks';
 
 type SearchProps = {
-  fetchData: (value: string) => Promise<void>;
+  setSearchValue: (value: string) => void;
 };
 
-const Search = ({ fetchData }: SearchProps) => {
+const Search = ({ setSearchValue }: SearchProps) => {
+  const [value, setValue] = useStorage(LOCALSTORAGE.SEARCH);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const searchValue = localStorage.getItem(LOCALSTORAGE.SEARCH) || '';
     if (inputRef.current) {
-      inputRef.current.value = searchValue;
+      inputRef.current.value = value;
     }
-    fetchData(searchValue);
-  }, [fetchData]);
+
+    setSearchValue(value);
+  }, [value, setSearchValue]);
 
   const handleSearchClick = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchValue = inputRef.current?.value.trim() || '';
-    localStorage.setItem(LOCALSTORAGE.SEARCH, searchValue);
-    await fetchData(searchValue);
+    setValue(inputRef.current?.value.trim() || '');
   };
 
   return (
     <form
-      className="relative flex min-h-14 flex-col gap-4 transition-all duration-300 sm:flex-row"
+      className="flex min-h-14 flex-col gap-4 transition-all duration-300 sm:flex-row"
       onSubmit={handleSearchClick}
     >
       <InputWithRef ref={inputRef} />

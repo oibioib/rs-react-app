@@ -8,7 +8,7 @@ type CardsListProps = {
 
 const CardsList = ({ characters }: CardsListProps) => {
   return (
-    <div className="grid grid-cols-1 gap-6 @xs:grid-cols-2 @2xl:grid-cols-4">
+    <div className="gap-full grid grid-cols-1 @xs:grid-cols-2 @2xl:grid-cols-4">
       {characters.map((character) => (
         <Card key={character.id} {...character} />
       ))}
