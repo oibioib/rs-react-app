@@ -19,7 +19,7 @@ function MainPage() {
 
   return (
     <>
-      <div className="gap-full flex flex-row [&>*]:flex-1 [&>*]:basis-full">
+      <div className="gap-full flex flex-row [&:htn-child(1)]:basis-full [&>*]:flex-1">
         <div className="gap-full @container relative flex flex-col">
           <HeaderSection>
             <Search setSearchValue={setSearchValue} />

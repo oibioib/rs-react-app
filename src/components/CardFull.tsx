@@ -1,4 +1,8 @@
+import { useNavigate, useSearchParams } from 'react-router';
+
 import { CharacterType } from '@types';
+
+import CloseButton from './ui/CloseButton';
 
 type CardProps = CharacterType;
 
@@ -11,11 +15,25 @@ const CardFull = ({
   gender,
   species,
 }: CardProps) => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   return (
     <div
       key={id}
       className="gap-full flex flex-col overflow-hidden rounded-lg bg-white p-4 shadow-xl"
     >
+      <div
+        className="absolute top-1 right-1 flex h-10 w-10 justify-end"
+        onClick={() =>
+          navigate({
+            pathname: '/',
+            search: searchParams.toString(),
+          })
+        }
+      >
+        <CloseButton />
+      </div>
       <div className="px-6 text-center">
         <span className="mb-2 text-2xl font-bold text-slate-700">{name}</span>
       </div>
