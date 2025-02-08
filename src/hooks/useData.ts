@@ -3,36 +3,38 @@ import { useEffect, useState } from 'react';
 import { ERROR } from '@config';
 import { FetchError, getData } from '@utils';
 
-const useData = <T>(query: string) => {
+const useData = <T>(query: string, doSearch?: boolean) => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      setIsLoading(true);
-      setError(null);
+      if (doSearch) {
+        setIsLoading(true);
+        setError(null);
 
-      try {
-        const response = await fetch(query);
+        try {
+          const response = await fetch(query);
 
-        const data = await getData(response);
+          const data = await getData(response);
 
-        if (response.ok) {
+          if (response.ok) {
+            setIsLoading(false);
+            setData(data || null);
+            return;
+          }
+
+          throw new FetchError(
+            data?.error || `${ERROR.FETCH} (Status: ${response.status})`
+          );
+        } catch (error) {
           setIsLoading(false);
-          setData(data || null);
-          return;
+          setError(error instanceof FetchError ? error.message : ERROR.DEFAULT);
         }
-
-        throw new FetchError(
-          data?.error || `${ERROR.FETCH} (Status: ${response.status})`
-        );
-      } catch (error) {
-        setIsLoading(false);
-        setError(error instanceof FetchError ? error.message : ERROR.DEFAULT);
       }
     })();
-  }, [query]);
+  }, [query, doSearch]);
 
   return { data, isLoading, error };
 };

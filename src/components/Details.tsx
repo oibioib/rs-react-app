@@ -16,7 +16,7 @@ const Details = () => {
     data: character,
     isLoading,
     error,
-  } = useData<CharacterType>(`${API_URL}/${ENDPOINT.CHARACTER}/${id}`);
+  } = useData<CharacterType>(`${API_URL}/${ENDPOINT.CHARACTER}/${id}`, true);
 
   if (!id) {
     return null;

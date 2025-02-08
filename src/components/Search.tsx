@@ -1,15 +1,14 @@
 import { FormEvent, useEffect, useRef } from 'react';
 
 import { Button, InputWithRef } from '@components/ui';
-import { BUTTON, LOCALSTORAGE } from '@config';
-import { useStorage } from '@hooks';
+import { BUTTON } from '@config';
 
 type SearchProps = {
+  value: string;
   setSearchValue: (value: string) => void;
 };
 
-const Search = ({ setSearchValue }: SearchProps) => {
-  const [value, setValue] = useStorage(LOCALSTORAGE.SEARCH);
+const Search = ({ value, setSearchValue }: SearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const Search = ({ setSearchValue }: SearchProps) => {
 
   const handleSearchClick = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setValue(inputRef.current?.value.trim() || '');
+    setSearchValue(inputRef.current?.value.trim() || '');
   };
 
   return (
