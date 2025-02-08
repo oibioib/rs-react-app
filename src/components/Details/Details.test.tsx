@@ -1,7 +1,7 @@
 import { MemoryRouter, Route, Routes } from 'react-router';
 
 import { render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import Details from './Details';
 
