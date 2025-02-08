@@ -12,12 +12,13 @@ const Card = ({ id, name, image }: CardProps) => {
     <div
       key={id}
       className="max-w-sm overflow-hidden rounded-lg bg-white shadow-lg hover:cursor-pointer"
-      onClick={() =>
+      onClick={() => {
         navigate({
           pathname: `/details/${id}/`,
           search: searchParams.toString(),
-        })
-      }
+        });
+      }}
+      data-testid="card"
     >
       <img className="w-full" src={image} alt={name} />
       <div className="px-6 py-4 text-center">

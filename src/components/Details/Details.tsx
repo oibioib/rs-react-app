@@ -1,8 +1,9 @@
 import { useParams } from 'react-router';
 
-import { AppError, CardFull, Spinner } from '@components';
+import { CardFull } from '@components';
 import { API_URL, ENDPOINT } from '@config';
 import useData from '@hooks/useData';
+import { DadaLoadingWrapper } from '@layouts';
 import { CharacterType } from '@types';
 
 const Details = () => {
@@ -22,9 +23,9 @@ const Details = () => {
   return (
     <div className="relative">
       <div className="sticky top-4 w-full">
-        {isLoading && <Spinner />}
-        {error && <AppError error={error} />}
-        {!isLoading && !error && character && <CardFull {...character} />}
+        <DadaLoadingWrapper isLoading={isLoading} error={error}>
+          {!isLoading && !error && character && <CardFull {...character} />}
+        </DadaLoadingWrapper>
       </div>
     </div>
   );

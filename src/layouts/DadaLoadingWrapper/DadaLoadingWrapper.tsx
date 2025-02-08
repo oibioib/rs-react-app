@@ -21,4 +21,5 @@ const DadaLoadingWrapper = ({
     </>
   );
 };
+
 export default DadaLoadingWrapper;
