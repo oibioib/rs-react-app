@@ -12,7 +12,6 @@ function MainPage() {
   const [storageValue, setStorageValue] = useStorage(LOCALSTORAGE.SEARCH);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-
   const [page, setPage] = useState(1);
 
   const { data, isLoading, error } = useData<{
