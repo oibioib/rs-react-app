@@ -1,8 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router';
 
+import { CloseButton } from '@components/ui';
 import { CharacterType } from '@types';
-
-import CloseButton from './ui/CloseButton';
 
 type CardProps = CharacterType;
 

@@ -1,6 +1,5 @@
+import { Card } from '@components';
 import { CharacterType } from '@types';
-
-import Card from './Card';
 
 type CardsListProps = {
   characters: CharacterType[];

@@ -1,12 +1,9 @@
 import { useParams } from 'react-router';
 
+import { AppError, CardFull, Spinner } from '@components';
 import { API_URL, ENDPOINT } from '@config';
 import useData from '@hooks/useData';
 import { CharacterType } from '@types';
-
-import AppError from './AppError';
-import CardFull from './CardFull';
-import Spinner from './Spinner';
 
 const Details = () => {
   const params = useParams();

@@ -1,10 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { ErrorBoundary } from '@components';
-import Details from '@components/Details';
+import { Details, ErrorBoundary } from '@components';
 import { BaseLayout } from '@layouts';
-import ErrorPage from '@pages/ErrorPage';
-import MainPage from '@pages/MainPage';
+import { ErrorPage, MainPage } from '@pages';
 
 import './App.css';
 

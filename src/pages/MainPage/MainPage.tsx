@@ -1,13 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router';
 
-import { CardsList, ErrorButton, Search } from '@components';
-import Pagination from '@components/Pagination';
+import { CardsList, ErrorButton, Pagination, Search } from '@components';
 import { API_URL, ENDPOINT, LOCALSTORAGE, SEARCH } from '@config';
-import { useStorage } from '@hooks';
-import useData from '@hooks/useData';
-import { HeaderSection, MainSection } from '@layouts';
-import DadaLoadingWrapper from '@layouts/DadaLoadingWrapper';
+import { useData, useStorage } from '@hooks';
+import { DadaLoadingWrapper, HeaderSection, MainSection } from '@layouts';
 import { CharacterType } from '@types';
 
 function MainPage() {
