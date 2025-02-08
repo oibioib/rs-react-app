@@ -74,12 +74,8 @@ function MainPage() {
 
     const page = +pageParam;
 
-    if (typeof page !== 'number' || isNaN(page)) {
+    if (page <= 0) {
       setPage(1);
-    } else if (page < 0) {
-      setPage(1);
-    } else if (page > pages) {
-      setPage(pages);
     } else {
       setPage(page);
     }
