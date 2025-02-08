@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format:check": "prettier --check . --log-level warn --ignore-path ./.gitignore",
     "format:fix": "prettier --write . --ignore-path ./.gitignore",
-    "test": "vitest --coverage",
+    "test": "vitest --coverage --run",
     "prepare": "husky"
   },
   "dependencies": {
