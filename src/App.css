@@ -3,3 +3,8 @@
 @theme {
   --font-sans: InterVariable, sans-serif;
 }
+
+@theme inline {
+  --gap-full: calc(var(--spacing) * 6);
+  --top-details: calc(var(--spacing) * 4);
+}
